@@ -1,0 +1,41 @@
+# frozen_string_literal: true
+
+# <%= migration_class_name %> Class
+class <%= migration_class_name %> < ActiveRecord::Migration[<%= ActiveRecord::Migration.current_version %>]
+    def change
+        create_table :<%= table_name %> do |t|
+            t.string :uuid, null: false, default: -> { 'gen_random_uuid()' }
+            t.boolean :active, default: true
+<% attributes.each do |attribute| -%>
+<% if attribute.password_digest? -%>
+            t.string :password_digest<%= attribute.inject_options %>
+<% elsif attribute.token? -%>
+            t.string :<%= attribute.name %><%= attribute.inject_options %>
+<% elsif attribute.reference? -%>
+            t.references :<%= attribute.name %>, null: false, foreign_key: { name: 'fk_<%= table_name %>_<%= attribute.name %>', to_table: :<%= attribute.name.to_s.pluralize %> }
+<% elsif !attribute.virtual? -%>
+            t.<%= attribute.type %> :<%= attribute.name %><%= attribute.inject_options %>
+<% end -%>
+<% end -%>
+<% if options[:timestamps] %>
+
+            t.timestamps
+<% end -%>
+        end
+
+        add_index :<%= table_name %>, :uuid, unique: true
+        add_index :<%= table_name %>, :active
+<% attributes.select(&:token?).each do |attribute| -%>
+        add_index :<%= table_name %>, :<%= attribute.index_name %><%= attribute.inject_index_options %>, unique: true
+<% end -%>
+<% attributes_with_index.reject(&:reference?).each do |attribute| -%>
+        add_index :<%= table_name %>, :<%= attribute.index_name %><%= attribute.inject_index_options %>
+<% end -%>
+<% reference_attributes = attributes.select(&:reference?) -%>
+<% if reference_attributes.size >= 2 -%>
+        add_index :<%= table_name %>,
+                    [<%= reference_attributes.map { |attr| ":#{attr.name}_id" }.join(', ') %>],
+                    unique: true
+<% end -%>
+    end
+end
