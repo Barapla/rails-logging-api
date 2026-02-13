@@ -1,0 +1,64 @@
+{
+  "name": "Rails API Template",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/workspace",
+  "features": {
+    "ghcr.io/devcontainers/features/github-cli:1": {}
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "rebornix.ruby",
+        "castwide.solargraph",
+        "kaiwood.endwise",
+        "misogi.ruby-rubocop",
+        "GitHub.copilot",
+        "eamodio.gitlens",
+        "streetsidesoftware.code-spell-checker"
+      ],
+      "settings": {
+        "editor.formatOnSave": true,
+        "[ruby]": {
+          "editor.defaultFormatter": "misogi.ruby-rubocop",
+          "editor.formatOnSave": true
+        },
+        "ruby.useBundler": true,
+        "ruby.useLanguageServer": true,
+        "ruby.lint": {
+          "rubocop": true
+        },
+        "files.associations": {
+          "*.html.erb": "erb",
+          "Gemfile": "ruby"
+        },
+        "files.exclude": {
+          "**/.git": true,
+          "**/tmp": true,
+          "**/log": true
+        }
+      }
+    }
+  },
+  "forwardPorts": [
+    3000,
+    5432,
+    6379
+  ],
+  "portsAttributes": {
+    "3000": {
+      "label": "Rails API",
+      "onAutoForward": "notify"
+    },
+    "5432": {
+      "label": "PostgreSQL"
+    },
+    "6379": {
+      "label": "Redis"
+    }
+  },
+  "onCreateCommand": "echo '🚀 Container created, preparing setup...'",
+  "postCreateCommand": "bash /workspace/.devcontainer/setup.sh 2>&1 | tee /tmp/setup.log",
+  "postStartCommand": "echo '✅ Container started' && cat /tmp/setup.log 2>/dev/null || echo 'Run: bash .devcontainer/setup.sh'",
+  "remoteUser": "vscode"
+}
