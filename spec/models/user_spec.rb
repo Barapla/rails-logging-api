@@ -23,20 +23,20 @@ RSpec.describe User, type: :model do
   end
 
   describe 'scopes' do
-  describe 'soft delete scopes' do
-    let!(:active_user) { create(:user, active: true) }
-    let!(:inactive_user) { create(:user, active: false) }
+    describe 'soft delete scopes' do
+      let!(:active_user) { create(:user, active: true) }
+      let!(:inactive_user) { create(:user, active: false) }
 
-    it 'default scope retorna solo usuarios activos' do
-      expect(User.all).to include(active_user)
-      expect(User.all).not_to include(inactive_user)
-    end
+      it 'default scope retorna solo usuarios activos' do
+        expect(User.all).to include(active_user)
+        expect(User.all).not_to include(inactive_user)
+      end
 
-    it 'with_inactive retorna todos' do
-      expect(User.with_inactive).to include(active_user, inactive_user)
+      it 'with_inactive retorna todos' do
+        expect(User.with_inactive).to include(active_user, inactive_user)
+      end
     end
   end
-end
 
   describe '#name' do
     let(:user) { build(:user, first_name: 'John', last_name: 'Doe') }
