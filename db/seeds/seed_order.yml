@@ -1,0 +1,19 @@
+# db/seeds/seed_order.yml
+version: "1.0"
+description: "Orden de ejecución de seeds para EnjoyEvents"
+
+groups:
+  rbac:
+    description: "Sistema de Roles y Permisos (RBAC)"
+    files:
+      - rbac/permissions.json
+      - rbac/resources.json
+      - rbac/roles.json
+      - rbac/role_permissions.json
+      - rbac/admin_user.json
+
+  catalogs:
+    description: "Catálogos del Sistema"
+    files:
+      - catalogs/event_types.json
+      - catalogs/event_statuses.json

@@ -1,0 +1,36 @@
+{
+  "model": "RolePermissionResource",
+  "unique_by": ["role_id", "permission_id", "resource_id"],
+  "dependencies": ["Role", "Permission", "Resource"],
+  "belongs_to": {
+    "role": "name",
+    "permission": "name",
+    "resource": "name"
+  },
+  "records": [
+    {
+      "role": "admin",
+      "permission": "read",
+      "resource": "users",
+      "active": true
+    },
+    {
+      "role": "admin",
+      "permission": "create",
+      "resource": "users",
+      "active": true
+    },
+    {
+      "role": "admin",
+      "permission": "update",
+      "resource": "users",
+      "active": true
+    },
+    {
+      "role": "admin",
+      "permission": "delete",
+      "resource": "users",
+      "active": true
+    }
+  ]
+}

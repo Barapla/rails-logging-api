@@ -1,0 +1,8 @@
+{
+  "model": "Role",
+  "unique_by": ["name"],
+  "records": [
+    { "name": "admin" },
+    { "name": "usuario" }
+  ]
+}

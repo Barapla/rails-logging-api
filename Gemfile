@@ -10,7 +10,8 @@ gem "puma", ">= 5.0"
 # gem "jbuilder"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
-# gem "bcrypt", "~> 3.1.7"
+gem "bcrypt", "~> 3.1.7"
+gem "jwt"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
@@ -35,6 +36,17 @@ gem "image_processing", "~> 1.2"
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin Ajax possible
 # gem "rack-cors"
 
+group :development do
+  gem "letter_opener_web", "~> 2.0"  # en lugar de solo letter_opener
+end
+
+group :test do
+  gem "factory_bot_rails"
+  gem "shoulda-matchers", "~> 5.0"
+  gem "faker"
+  gem "mock_redis"
+end
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
@@ -47,14 +59,15 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+  gem "rspec-rails", "~> 6.0"
+  gem "dotenv-rails"
 end
 
-# Authentication
-gem 'devise'
-gem 'devise-jwt'
 
 # CORS
-gem 'rack-cors'
+gem "rack-cors"
 
 # Environment variables
-gem 'dotenv-rails', groups: [:development, :test]
+gem "jsonapi-serializer"
+gem "mailersend-ruby"
+gem "redis", "~> 5.0"

@@ -1,4 +1,5 @@
 class Status < ApplicationRecord
+    include SoftDeletable
     belongs_to :group_catalog
 
     before_create :generate_uuid

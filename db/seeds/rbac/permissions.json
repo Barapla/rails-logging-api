@@ -1,0 +1,10 @@
+{
+  "model": "Permission",
+  "unique_by": ["name"],
+  "records": [
+    { "name": "read" },
+    { "name": "create" },
+    { "name": "update" },
+    { "name": "delete" }
+  ]
+}

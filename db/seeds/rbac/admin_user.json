@@ -1,0 +1,21 @@
+{
+  "model": "User",
+  "unique_by": ["email"],
+  "dependencies": ["Role"],
+  "skip_if_exists": true,
+  "belongs_to": {
+    "role": "name"
+  },
+  "records": [
+    {
+      "email": "admin@enjoyevents.com",
+      "password": "Admin123!",
+      "password_confirmation": "Admin123!",
+      "first_name": "Admin",
+      "last_name": "System",
+      "role": "admin",
+      "confirmed_at": "2024-01-01T00:00:00Z",
+      "active": true
+    }
+  ]
+}

@@ -47,8 +47,6 @@ Thumbs.db
 yarn-debug.log*
 .yarn-integrity
 
-# Database
-config/database.yml
 # Ignore key files for decrypting credentials and more.
 /config/*.key
 

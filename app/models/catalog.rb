@@ -1,4 +1,5 @@
 class Catalog < ApplicationRecord
+    include SoftDeletable
     belongs_to :group_catalog
 
     validates :value, presence: true

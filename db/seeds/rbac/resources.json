@@ -1,0 +1,7 @@
+{
+  "model": "Resource",
+  "unique_by": ["name"],
+  "records": [
+    { "name": "users" }
+  ]
+}

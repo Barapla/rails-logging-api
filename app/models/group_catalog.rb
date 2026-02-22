@@ -1,4 +1,5 @@
 class GroupCatalog < ApplicationRecord
+    include SoftDeletable
     has_many :catalogs, dependent: :destroy
     has_many :statuses, dependent: :destroy
 

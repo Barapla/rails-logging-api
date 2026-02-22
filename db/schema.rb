@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_02_13_122729) do
+ActiveRecord::Schema[8.1].define(version: 2026_02_20_032656) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -65,18 +65,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_13_122729) do
     t.string "uuid", default: -> { "gen_random_uuid()" }, null: false
     t.index ["active"], name: "index_group_catalogs_on_active"
     t.index ["uuid"], name: "index_group_catalogs_on_uuid", unique: true
-  end
-
-  create_table "jwt_denylists", force: :cascade do |t|
-    t.boolean "active", default: true
-    t.datetime "created_at", null: false
-    t.datetime "exp"
-    t.string "jti"
-    t.datetime "updated_at", null: false
-    t.string "uuid", default: -> { "gen_random_uuid()" }, null: false
-    t.index ["active"], name: "index_jwt_denylists_on_active"
-    t.index ["jti"], name: "index_jwt_denylists_on_jti"
-    t.index ["uuid"], name: "index_jwt_denylists_on_uuid", unique: true
   end
 
   create_table "permissions", force: :cascade do |t|
@@ -161,12 +149,13 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_13_122729) do
     t.datetime "confirmed_at"
     t.datetime "created_at", null: false
     t.string "email", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
     t.string "first_name"
     t.string "last_name"
+    t.string "password_digest", default: "", null: false
     t.datetime "remember_created_at"
     t.datetime "reset_password_sent_at"
     t.string "reset_password_token"
+    t.bigint "role_id", null: false
     t.string "unconfirmed_email"
     t.datetime "updated_at", null: false
     t.string "uuid", default: -> { "gen_random_uuid()" }, null: false
@@ -174,6 +163,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_13_122729) do
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["role_id"], name: "index_users_on_role_id"
     t.index ["uuid"], name: "index_users_on_uuid", unique: true
   end
 
@@ -186,4 +176,5 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_13_122729) do
   add_foreign_key "statuses", "group_catalogs", column: "group_catalogs_id", name: "fk_statuses_group_catalogs"
   add_foreign_key "user_roles", "roles", column: "role_id_id", name: "fk_user_roles_role"
   add_foreign_key "user_roles", "users", column: "user_id_id", name: "fk_user_roles_user"
+  add_foreign_key "users", "roles"
 end
