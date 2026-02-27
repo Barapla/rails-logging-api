@@ -37,7 +37,7 @@ gem "image_processing", "~> 1.2"
 # gem "rack-cors"
 
 group :development do
-  gem "letter_opener_web", "~> 2.0"  # en lugar de solo letter_opener
+  gem "letter_opener_web", "~> 3.0"  # en lugar de solo letter_opener
 end
 
 group :test do
